@@ -23,6 +23,7 @@ export const fetchDoctors = async (): Promise<Doctor[]> => {
     }
     
     const data = await response.json();
+    console.log("API Response:", data); // Log the API response
     
     // Transform API data to match our Doctor interface
     return data.map((doctor: any) => ({

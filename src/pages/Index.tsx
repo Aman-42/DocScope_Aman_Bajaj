@@ -1,18 +1,17 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import Header from "@/components/Header";
 import FilterPanel from "@/components/FilterPanel";
 import DoctorList from "@/components/DoctorList";
 import { Doctor, FilterState } from "@/types/doctor";
 import { fetchDoctors } from "@/services/doctorService";
+import { toast } from "@/hooks/use-toast";
 
 const Index: React.FC = () => {
-  const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [filteredDoctors, setFilteredDoctors] = useState<Doctor[]>([]);
   const [allSpecialties, setAllSpecialties] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -22,6 +21,20 @@ const Index: React.FC = () => {
     consultationType: "",
     specialties: [],
     sortBy: "",
+  });
+
+  // Use React Query to fetch doctors
+  const { data: doctors = [], isLoading, error } = useQuery({
+    queryKey: ['doctors'],
+    queryFn: fetchDoctors,
+    onError: (err) => {
+      console.error("Failed to fetch doctors:", err);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to load doctors. Please try again later.",
+      });
+    }
   });
 
   // Parse query parameters from URL when the component mounts
@@ -38,32 +51,19 @@ const Index: React.FC = () => {
     });
   }, [location.search]);
 
-  // Fetch doctors data when the component mounts
+  // Extract unique specialties when doctors data is loaded
   useEffect(() => {
-    const getDoctors = async () => {
-      setIsLoading(true);
-      try {
-        const data = await fetchDoctors();
-        setDoctors(data);
-
-        // Extract unique specialties
-        const specialties = new Set<string>();
-        data.forEach((doctor) => {
-          doctor.specialty.forEach((spec) => specialties.add(spec));
+    if (doctors.length) {
+      // Extract unique specialties
+      const specialties = new Set<string>();
+      doctors.forEach((doctor) => {
+        doctor.specialty.forEach((spec) => {
+          if (spec) specialties.add(spec);
         });
-        setAllSpecialties(Array.from(specialties).sort());
-        
-        setError(null);
-      } catch (err) {
-        setError("Failed to load doctors. Please try again later.");
-        console.error(err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    getDoctors();
-  }, []);
+      });
+      setAllSpecialties(Array.from(specialties).sort());
+    }
+  }, [doctors]);
 
   // Apply filters and sorting whenever doctors or filters change
   useEffect(() => {
@@ -78,7 +78,7 @@ const Index: React.FC = () => {
         (doctor) =>
           doctor.name.toLowerCase().includes(searchTerm) ||
           doctor.specialty.some((spec) =>
-            spec.toLowerCase().includes(searchTerm)
+            spec && spec.toLowerCase().includes(searchTerm)
           )
       );
     }
@@ -165,7 +165,7 @@ const Index: React.FC = () => {
           </div>
         ) : error ? (
           <div className="bg-red-100 text-red-700 p-4 rounded-md">
-            {error}
+            {error instanceof Error ? error.message : "Failed to load doctors. Please try again later."}
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
