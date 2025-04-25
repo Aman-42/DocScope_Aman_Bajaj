@@ -27,13 +27,15 @@ const Index: React.FC = () => {
   const { data: doctors = [], isLoading, error } = useQuery({
     queryKey: ['doctors'],
     queryFn: fetchDoctors,
-    onError: (err) => {
-      console.error("Failed to fetch doctors:", err);
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Failed to load doctors. Please try again later.",
-      });
+    onSettled: (data, error) => {
+      if (error) {
+        console.error("Failed to fetch doctors:", error);
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to load doctors. Please try again later.",
+        });
+      }
     }
   });
 
