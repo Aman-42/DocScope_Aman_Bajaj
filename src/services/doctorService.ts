@@ -36,7 +36,7 @@ export const fetchDoctors = async (): Promise<Doctor[]> => {
         ...(doctor.video_consult ? ["Video Consult"] : []),
         ...(doctor.in_clinic ? ["In Clinic"] : [])
       ],
-      imageUrl: doctor.image // Extract image URL from the API response
+      imageUrl: doctor.photo || "" // Use the photo field from API response
     }));
   } catch (error) {
     console.error("Error fetching doctors:", error);

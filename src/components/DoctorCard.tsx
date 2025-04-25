@@ -33,7 +33,14 @@ const DoctorCard: React.FC<DoctorCardProps> = ({ doctor }) => {
         <div className="flex items-start justify-between">
           <Avatar className="h-16 w-16 mr-4 border border-gray-200">
             {doctor.imageUrl ? (
-              <AvatarImage src={doctor.imageUrl} alt={`Dr. ${doctor.name || "Unknown"}`} />
+              <AvatarImage 
+                src={doctor.imageUrl} 
+                alt={`Dr. ${doctor.name || "Unknown"}`} 
+                onError={(e) => {
+                  console.error("Failed to load image:", e);
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
             ) : (
               <AvatarFallback className="bg-primary/10 text-primary">
                 {getInitials(doctor.name)}

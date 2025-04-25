@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -23,19 +22,20 @@ const Index: React.FC = () => {
     sortBy: "",
   });
 
-  // Use React Query to fetch doctors
+  // Use React Query to fetch doctors with correct error handling
   const { data: doctors = [], isLoading, error } = useQuery({
     queryKey: ['doctors'],
     queryFn: fetchDoctors,
-    onSettled: (data, error) => {
-      if (error) {
-        console.error("Failed to fetch doctors:", error);
-        toast({
-          variant: "destructive",
-          title: "Error",
-          description: "Failed to load doctors. Please try again later.",
-        });
-      }
+    onSuccess: (data) => {
+      console.log("Successfully fetched doctors:", data);
+    },
+    onError: (error) => {
+      console.error("Failed to fetch doctors:", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to load doctors. Please try again later.",
+      });
     }
   });
 
