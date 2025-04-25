@@ -4,7 +4,7 @@
 
 ## 🌐 Live Demo
 
-[Click here to view the live site](#) *(Update with your deployed link)*
+https://docscopeaman757.netlify.app/
 
 ---
 
@@ -67,7 +67,7 @@ Make sure to use the following `data-testid` attributes exactly as described in 
 ✅ UI Components Structured  
 ✅ URL Persistence Enabled  
 ✅ Test ID Compliance  
-✅ Deployment: 
+✅ Deployment: https://docscopeaman757.netlify.app/
 
 ---
 
