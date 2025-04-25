@@ -7,6 +7,11 @@ interface DoctorCardProps {
 }
 
 const DoctorCard: React.FC<DoctorCardProps> = ({ doctor }) => {
+  // Add safety checks for all properties
+  const specialtyText = doctor.specialty && Array.isArray(doctor.specialty) 
+    ? doctor.specialty.join(", ") 
+    : "Not specified";
+  
   return (
     <div
       data-testid="doctor-card"
@@ -19,31 +24,31 @@ const DoctorCard: React.FC<DoctorCardProps> = ({ doctor }) => {
               data-testid="doctor-name"
               className="text-lg font-semibold text-gray-800 mb-2"
             >
-              Dr. {doctor.name}
+              Dr. {doctor.name || "Unknown"}
             </h3>
             <div data-testid="doctor-specialty" className="mb-2">
               <span className="text-sm text-gray-600">Specialties: </span>
               <span className="font-medium">
-                {doctor.specialty.join(", ")}
+                {specialtyText}
               </span>
             </div>
             <div data-testid="doctor-experience" className="mb-2">
               <span className="text-sm text-gray-600">Experience: </span>
-              <span className="font-medium">{doctor.experience} years</span>
+              <span className="font-medium">{doctor.experience || 0} years</span>
             </div>
             <div data-testid="doctor-fee" className="mb-2">
               <span className="text-sm text-gray-600">Fee: </span>
-              <span className="font-medium">₹{doctor.fee}</span>
+              <span className="font-medium">₹{doctor.fee || 0}</span>
             </div>
           </div>
         </div>
         <div className="mt-4 flex flex-wrap gap-2">
-          {doctor.consultationMode.includes("Video Consult") && (
+          {doctor.consultationMode && doctor.consultationMode.includes("Video Consult") && (
             <span className="bg-blue-100 text-primary px-2 py-1 rounded-md text-sm">
               Video Consult
             </span>
           )}
-          {doctor.consultationMode.includes("In Clinic") && (
+          {doctor.consultationMode && doctor.consultationMode.includes("In Clinic") && (
             <span className="bg-green-100 text-green-700 px-2 py-1 rounded-md text-sm">
               In Clinic
             </span>
