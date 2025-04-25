@@ -1,73 +1,77 @@
-# Welcome to your Lovable project
+# DocScope 🩺
 
-## Project info
+**DocScope** is a modern, fully client-side web application that lists doctors and provides powerful filtering, sorting, and search capabilities. Built as part of a Campus Assessment, this app emphasizes functionality with test automation support and query-param state persistence.
 
-**URL**: https://lovable.dev/projects/a331545d-28d4-47df-a8da-0c2752a9d165
+## 🌐 Live Demo
 
-## How can I edit this code?
+[Click here to view the live site](#) *(Update with your deployed link)*
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## 🚀 Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/a331545d-28d4-47df-a8da-0c2752a9d165) and start prompting.
+- 🔍 **Autocomplete Search**
+  - Search by doctor names
+  - Top 3 suggestions shown
+  - Filter on Enter or click
 
-Changes made via Lovable will be committed automatically to this repo.
+- 🎛️ **Filter Panel**
+  - Consultation Type: Video or In Clinic (single select)
+  - Specialties: Multi-select checkboxes (e.g., Cardiologist, Dentist, etc.)
+  - Sort by:
+    - Fees (ascending)
+    - Experience (descending)
 
-**Use your preferred IDE**
+- 📦 **Client-Side Data Handling**
+  - All filtering, searching, and sorting done on the frontend
+  - Filters persist via URL query parameters
+  - Browser navigation (Back/Forward) restores previous state
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- 🧪 **Test Automation Ready**
+  - Uses strict `data-testid` attributes for all critical elements
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- 🎨 **Design**
+  - Clean and responsive UI
+  - Color palette: White background, Blue accents, Green highlights
 
-Follow these steps:
+---
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 🔗 API Source
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+This app uses the following public API to fetch doctor data:
 
-# Step 3: Install the necessary dependencies.
-npm i
+https://srijandubey.github.io/campus-api-mock/SRM-C1-25.json
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 🛠️ Tech Stack
 
-**Use GitHub Codespaces**
+- **React**
+- **JavaScript (ES6)**
+- **CSS (custom styling)**
+- **React Router DOM** for routing and query param handling
+- **Deployed via**: *(insert platform like Netlify/Vercel if applicable)*
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+---
 
-## What technologies are used for this project?
+## ✅ Testing Support
 
-This project is built with:
+Make sure to use the following `data-testid` attributes exactly as described in the assessment for testing and validation. Refer to the task PDF for the full list.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+---
 
-## How can I deploy this project?
+## 📌 Project Status
 
-Simply open [Lovable](https://lovable.dev/projects/a331545d-28d4-47df-a8da-0c2752a9d165) and click on Share -> Publish.
+✅ Functional Requirements Completed  
+✅ UI Components Structured  
+✅ URL Persistence Enabled  
+✅ Test ID Compliance  
+✅ Deployment: 
 
-## Can I connect a custom domain to my Lovable project?
+---
 
-Yes, you can!
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## 📄 License
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+This project is for Bajaj Finserv Test
