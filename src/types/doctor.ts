@@ -6,6 +6,7 @@ export interface Doctor {
   experience: number;
   fee: number;
   consultationMode: string[];
+  imageUrl?: string; // Add imageUrl property
 }
 
 export interface FilterState {

@@ -1,6 +1,7 @@
 
 import { Doctor } from "@/types/doctor";
 import React from "react";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 interface DoctorCardProps {
   doctor: Doctor;
@@ -12,6 +13,17 @@ const DoctorCard: React.FC<DoctorCardProps> = ({ doctor }) => {
     ? doctor.specialty.join(", ") 
     : "Not specified";
   
+  // Get doctor initials for avatar fallback
+  const getInitials = (name: string): string => {
+    if (!name) return "DR";
+    return name
+      .split(' ')
+      .map(part => part[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
+  
   return (
     <div
       data-testid="doctor-card"
@@ -19,7 +31,16 @@ const DoctorCard: React.FC<DoctorCardProps> = ({ doctor }) => {
     >
       <div className="p-5">
         <div className="flex items-start justify-between">
-          <div>
+          <Avatar className="h-16 w-16 mr-4 border border-gray-200">
+            {doctor.imageUrl ? (
+              <AvatarImage src={doctor.imageUrl} alt={`Dr. ${doctor.name || "Unknown"}`} />
+            ) : (
+              <AvatarFallback className="bg-primary/10 text-primary">
+                {getInitials(doctor.name)}
+              </AvatarFallback>
+            )}
+          </Avatar>
+          <div className="flex-1">
             <h3
               data-testid="doctor-name"
               className="text-lg font-semibold text-gray-800 mb-2"
