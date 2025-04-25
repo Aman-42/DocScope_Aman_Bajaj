@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -98,4 +99,13 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Custom styling for the DocScope app */
+.bg-primary {
+  background-color: #0EA5E9;
+}
+
+.text-primary {
+  color: #0EA5E9;
 }
